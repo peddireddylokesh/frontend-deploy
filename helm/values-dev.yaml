@@ -11,4 +11,4 @@ ports: #same as this too available in config.yaml
   - port: 80
     targetPort: 8080
 tgb:
-  arn: arn:aws:elasticloadbalancing:us-east-1:897729141306:targetgroup/expense-dev-frontend/4908d4345b8ab1bi2
+  arn: arn:aws:elasticloadbalancing:us-east-1:897729141306:targetgroup/expense-dev-frontend/4908d4345b8ab1b2
