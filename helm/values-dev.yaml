@@ -2,8 +2,14 @@ deployment:
   imageVersion: IMAGE_VERSION
   imageURL: 897729141306.dkr.ecr.us-east-1.amazonaws.com/expense-dev-frontend
 hpa: 
-  utilization: 5 # by default is 5%
-
+  cpuTarget: 5 # by default is 5%
+containers: # this one will be in config.yaml 
+  - name: nginx
+    ports:
+      - containerPort: 8080
+ports: #same as this too available in config.yaml
+  - port: 80
+    targetPort: 8080
 tgb:
   arn: arn:aws:elasticloadbalancing:us-east-1:897729141306:targetgroup/expense-dev-frontend/4908d4345b8ab1b2
 
