@@ -1,4 +1,3 @@
-# when you want to scale the frontend deployment based on cpu usage---------------
 apiVersion: autoscaling/v2
 kind: HorizontalPodAutoscaler
 metadata:
@@ -7,7 +6,7 @@ metadata:
 spec:
   scaleTargetRef:
     apiVersion: apps/v1
-    kind: deployment
+    kind: Deployment
     name: frontend
   minReplicas: 1
   maxReplicas: 10
@@ -17,4 +16,4 @@ spec:
       name: cpu
       target:
         type: Utilization
-        averageUtilization: {{ .Values.hpa.cpuTarget }}
+        averageUtilization: {{ .Values.hpa.utilisation }}
