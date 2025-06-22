@@ -39,12 +39,16 @@ pipeline {
                 script {
                     withAWS(region: "${env.region}", credentials: "aws-credentials") {
                         sh """
-                            aws eks update-kubeconfig --region $region --name $CLUSTER_NAME
+                            aws eks update-kubeconfig --region ${region} --name ${CLUSTER_NAME}
                             kubectl get nodes
+                            curl -s -o crds.yaml https://raw.githubusercontent.com/aws/eks-charts/master/stable/aws-load-balancer-controller/crds/crds.yaml
+                            kubectl apply -f crds.yaml || true
+                            kubectl get crd | grep targetgroupbindings || echo '⚠️ CRDs might not be installed'
                             kubectl create namespace ${PROJECT} --dry-run=client -o yaml | kubectl apply -f -
                             cd helm
-                            sed -i 's/IMAGE_VERSION/${params.version}/g' values-${environment}.yaml
-                            helm upgrade --install $component -n $project -f values-${environment}.yaml .
+                            cp values-${DEPLOY_ENV}.yaml values-temp.yaml
+                            sed -i 's/IMAGE_VERSION/${params.version}/g' values-temp.yaml
+                            helm upgrade --install ${component} -n ${project} -f values-temp.yaml .
 
                         """
                     }
