@@ -9,7 +9,7 @@ pipeline {
         appVersion = ''
         region = 'us-east-1'
         CLUSTER_NAME = 'expense-dev'
-        environment = 'production'
+        DEPLOY_ENV = 'production'
         ACC_ID = '897729141306'
         DEBUG = 'true'
     }
@@ -27,8 +27,8 @@ pipeline {
             steps {
                 script {
                     appVersion = params.version
-                    environment = params.deploy_to
-                    
+                    DEPLOY_ENV = params.deploy_to
+                    echo "📦 Deploying version ${appVersion} to ${DEPLOY_ENV}"
                 }
             }
         }
