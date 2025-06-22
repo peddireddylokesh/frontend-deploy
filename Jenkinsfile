@@ -8,6 +8,7 @@ pipeline {
         COMPONENT = 'frontend'
         appVersion = ''
         region = 'us-east-1'
+        CLUSTER_NAME = 'expense-dev'
         environment = 'production'
         ACC_ID = '897729141306'
         DEBUG = 'true'
@@ -38,8 +39,9 @@ pipeline {
                 script {
                     withAWS(region: "${env.region}", credentials: "aws-credentials") {
                         sh """
-                            aws eks update-kubeconfig --region $region --name expense-dev
+                            aws eks update-kubeconfig --region $region --name $CLUSTER_NAME
                             kubectl get nodes
+                            kubectl create namespace ${PROJECT} --dry-run=client -o yaml | kubectl apply -f -
                             cd helm
                             sed -i 's/IMAGE_VERSION/${params.version}/g' values-${environment}.yaml
                             helm upgrade --install $component -n $project -f values-${environment}.yaml .
