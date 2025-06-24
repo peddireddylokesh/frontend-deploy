@@ -4,12 +4,12 @@ pipeline {
     }
 
     environment {
-        PROJECT = 'expense'
-        COMPONENT = 'frontend'
+        project = 'expense'
+        component = 'frontend'
+        deploy_to = "production"
         appVersion = ''
         region = 'us-east-1'
-        environment = 'production'
-        ACC_ID = '897729141306'
+        environment = ''
         DEBUG = 'true'
     }
 

@@ -5,4 +5,4 @@ hpa:
   cpuUtilization: 70
   enabled: true
 tgb:
-  arn: arn:aws:elasticloadbalancing:us-east-1:897729141306:targetgroup/expense-dev-frontend/da553636bdb0f4a5
+  arn: arn:aws:elasticloadbalancing:us-east-1:897729141306:targetgroup/expense-dev-frontend/da553636bdb0f4a5  # replace with your target group ARN expense-dev-frontend
