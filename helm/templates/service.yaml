@@ -5,7 +5,8 @@ metadata:
   namespace: expense
 spec:
   type: LoadBalancer
-  selector: # labels are used as selectors
+  # labels are used as selectors
+  selector:
     app: frontend
     tier: web
     project: expense
