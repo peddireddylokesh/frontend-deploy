@@ -22,6 +22,7 @@ spec:
         tier: web
         project: expense
     spec:
+      automountServiceAccountToken: false
       volumes:
       - name: nginx
         configMap:
@@ -37,10 +38,12 @@ spec:
           requests:
             memory: "68Mi"
             cpu: "100m"
+            ephemeral-storage: "128Mi"
           # hard limit
           limits:
             memory: "128Mi"
             cpu: "150m"
+            ephemeral-storage: "256Mi"
         ports:
         - containerPort: 8080
         volumeMounts:
