@@ -1,28 +1,26 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: {{ include "frontend-deploy.fullname" . }}
-  labels:
-    {{- include "frontend-deploy.labels" . | nindent 4 }}
-  annotations:
-    kubernetes.io/ingress.class: nginx
-
+    name: {{ include "frontend-deploy.fullname" . }}
+    labels:
+        {{- include "frontend-deploy.labels" . | nindent 4 }}
+    annotations:
+        kubernetes.io/ingress.class: nginx
 spec:
-  rules:
-    - host: {{ .Values.ingress.host }}
-      http:
-        paths:
-          - path: /
-            pathType: Prefix
-            backend:
-              service:
-                name: {{ include "frontend-deploy.fullname" . }}
-                port:
-                  number: {{ .Values.service.port }}
-
-  {{- if .Values.ingress.tls }}
-  tls:
-    - hosts:
-        - {{ .Values.ingress.host }}
-      secretName: {{ .Values.ingress.tlsSecret }}
-  {{- end }}
+    rules:
+        - host: {{ .Values.ingress.host }}
+            http:
+                paths:
+                    - path: /
+                        pathType: Prefix
+                        backend:
+                            service:
+                                name: {{ include "frontend-deploy.fullname" . }}
+                                port:
+                                    number: {{ .Values.service.port }}
+    {{- if .Values.ingress.tls }}
+    tls:
+        - hosts:
+                - {{ .Values.ingress.host }}
+            secretName: {{ .Values.ingress.tlsSecret }}
+    {{- end }}
